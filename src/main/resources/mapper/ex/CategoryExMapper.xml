@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.briup.demo.mapper.ex.CategoryExMapper">
+
+	  <resultMap id="BaseResultMap" type="com.briup.demo.bean.ex.CategoryEx" >
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="code" jdbcType="BIGINT" property="code" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <collection property="articles" ofType="com.briup.demo.bean.Article">
+		 <id column="id" jdbcType="INTEGER" property="id" />
+   	 	 <result column="author" jdbcType="VARCHAR" property="author" />
+   		 <result column="clicktimes" jdbcType="INTEGER" property="clicktimes" />
+    	 <result column="content" jdbcType="VARCHAR" property="content" />
+    	 <result column="publishDate" jdbcType="DATE" property="publishdate" />
+    	 <result column="title" jdbcType="VARCHAR" property="title" />
+   	 	 <result column="category_id" jdbcType="INTEGER" property="categoryId" />
+	</collection>
+  </resultMap>
+	
+
+	<select id="findAllCategoryEx"  resultMap="BaseResultMap" >
+    	select * from cms_article a left    join cms_category b on a.category_id=b.id;
+  </select>
+  
+  	<select id="findCategoryExByName"  resultMap="BaseResultMap"  parameterType="java.lang.String">
+    	select * from cms_article a ,cms_category b where a.category_id=b.id and b.name=#{name};
+  </select>
+  
+</mapper>
